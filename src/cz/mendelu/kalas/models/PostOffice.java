@@ -1,6 +1,9 @@
-package cz.mendelu.kalas;
+package cz.mendelu.kalas.models;
 
-import java.util.Random;
+import cz.mendelu.kalas.ProbabilityRangeMap;
+import cz.mendelu.kalas.Utils;
+
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -10,21 +13,17 @@ public class PostOffice {
 
     private ProbabilityRangeMap services = new ProbabilityRangeMap<Service>();
 
-    public void pickService(){
-        Random r = new Random();
-        double randomValue = (0.1 + (1 - 0.1) * r.nextDouble());
-        double twoDecimal = Math.round(randomValue * 100.0) / 100.0;
+    private ArrayList<Desk> desks;
 
-
-        System.out.println("random number = " + twoDecimal);
-        System.out.println(services.getObject(twoDecimal));
+    public Service pickService(){
+        Double r = Utils.getRandom();
+        //System.out.println("random number = " + r);
+        return (Service) services.getObject(r);
     }
 
-
-    public void pickService(Double d){
-
-        System.out.println("choosed number = " + d);
-        System.out.println(services.getObject(d));
+    public Service pickService(Double d){
+        //System.out.println("choosed number = " + d);
+        return (Service) services.getObject(d);
     }
 
     public void addService(int c, Service s) {

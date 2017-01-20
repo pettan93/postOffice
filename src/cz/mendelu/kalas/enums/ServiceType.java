@@ -1,4 +1,4 @@
-package cz.mendelu.kalas;
+package cz.mendelu.kalas.enums;
 
 /**
  * Created by Pettan on 20.01.2017.
