@@ -13,7 +13,24 @@ public class PostOffice {
 
     private ProbabilityRangeMap services = new ProbabilityRangeMap<Service>();
 
-    private ArrayList<Desk> desks;
+    private ArrayList<Desk> desks = new ArrayList<>();
+
+    /**
+     * Creates new post office with given number of desks
+     * @param desks
+     */
+    public PostOffice(Integer desks) {
+        for (int i = 0;i<desks;i++){
+            this.desks.add(new Desk());
+        }
+    }
+
+    public Desk getFirstFreeDesk(){
+        for (Desk desk : desks) {
+            if(desk.isOn()) return desk;
+        }
+        return null;
+    }
 
     public Service pickService(){
         Double r = Utils.getRandom();
