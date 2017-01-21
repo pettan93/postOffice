@@ -1,8 +1,5 @@
 package cz.mendelu.kalas.models;
 
-/**
- * Created by Pettan on 21.01.2017.
- */
 public class Costumer {
 
     private int number;

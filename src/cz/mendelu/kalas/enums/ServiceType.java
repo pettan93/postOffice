@@ -1,10 +1,22 @@
 package cz.mendelu.kalas.enums;
 
-/**
- * Created by Pettan on 20.01.2017.
- */
 public enum ServiceType {
     DOPIS,
+    DOPORUCENY_DOPIS,
     BALIK,
-    KONKOKORENT
+    PREVZETI_ZASILKY,
+    UCET_VYBER,
+    UCET_VKLAD,
+    UCET_ZALOZIT,
+    SAZKA,
+    SLOZENKA,
+    POJISTKA,
+    PUJCKA,
+    KONKOKORENT,
+    ZBOZI,
+    LOS,
+    VYPIS_TREST,
+    VYPIS_NEMOVITOST,
+    VYPIS_OSOB,
+    ZMENA_OSOB
 }

@@ -3,12 +3,9 @@ package cz.mendelu.kalas.models;
 import cz.mendelu.kalas.RangeMap;
 import cz.mendelu.kalas.Utils;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-/**
- * Created by Pettan on 20.01.2017.
- */
+
 public class WorkDay {
 
 

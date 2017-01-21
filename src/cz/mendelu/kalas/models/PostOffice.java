@@ -8,9 +8,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
-/**
- * Created by Pettan on 20.01.2017.
- */
 public class PostOffice {
 
     private RangeMap services = new RangeMap<Service>();

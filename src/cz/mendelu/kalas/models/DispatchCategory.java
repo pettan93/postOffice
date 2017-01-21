@@ -2,9 +2,6 @@ package cz.mendelu.kalas.models;
 
 import static cz.mendelu.kalas.Utils.getRandom;
 
-/**
- * Created by Pettan on 20.01.2017.
- */
 public enum DispatchCategory {
     VERY_FAST {
         @Override

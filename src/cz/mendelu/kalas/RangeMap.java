@@ -5,9 +5,6 @@ import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
 
-/**
- * Created by Pettan on 20.01.2017.
- */
 public class RangeMap<T> {
     NavigableMap<Double, T> map = new TreeMap<>();
 

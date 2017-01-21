@@ -6,9 +6,6 @@ import cz.mendelu.kalas.models.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * Created by Pettan on 21.01.2017.
- */
 public class AnalysisBox {
 
 
@@ -140,7 +137,8 @@ public class AnalysisBox {
         for (Desk desk : this.p.geAllDesks()) {
             System.out.println(" - desk[" + desk.getDeskNumber() + "]");
             System.out.println("   - idle[" + desk.getIdleTime() + "]");
-            System.out.println("   - utilization[" + (100 - ((desk.getIdleTime() / (540 / 100)))) + "]");
+            Integer utilization = (100 - (desk.getIdleTime() / (540 / 100))) > 0 ? (100 - (desk.getIdleTime() / (540 / 100)))  : 0;
+            System.out.println("   - utilization[" + utilization+ "]");
         }
         System.out.println("- Desks overview End");
         System.out.println("\n");
@@ -151,7 +149,7 @@ public class AnalysisBox {
         System.out.println("- Queue overview ---->");
         System.out.println(" - max[" + this.maxQueue + "]- "+this.maxTime);
         System.out.println(" - avg[" + average + "]");
-        System.out.println("- Desks overview End");
+        System.out.println("- Queue overview End");
         System.out.println("\n");
     }
 

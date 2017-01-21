@@ -4,9 +4,6 @@ import cz.mendelu.kalas.RangeMap;
 import cz.mendelu.kalas.enums.ServiceType;
 import cz.mendelu.kalas.Utils;
 
-/**
- * Created by Pettan on 20.01.2017.
- */
 public class Service {
 
     private ServiceType type;

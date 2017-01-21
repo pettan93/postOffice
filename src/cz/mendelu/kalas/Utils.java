@@ -4,9 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 
-/**
- * Created by Pettan on 20.01.2017.
- */
 public class Utils {
 
     /**
