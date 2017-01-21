@@ -19,8 +19,9 @@ public class AnalysisBox {
     private HashMap<ServiceType, HashMap<DispatchCategory, ArrayList<Integer>>> stats = new HashMap<>();
 
 
+    private List<Integer> queueNumbers = new ArrayList<>();
     private Integer maxQueue = 0;
-    private Integer time = 0;
+    private String maxTime;
 
 
     public AnalysisBox(PostOffice postOffice, WorkDay workDay) {
@@ -30,11 +31,11 @@ public class AnalysisBox {
 
 
     public void checkout() {
-
         if(p.getQueueCostumer().size() > maxQueue) {
             maxQueue = p.getQueueCostumer().size();
-            time = w.howLong();
+            this.maxTime = w.getClock();
         }
+        queueNumbers.add(p.getQueueCostumerCont());
 
         System.out.println("Status : free desks [" + p.geAllDesks().stream().filter(desk -> !desk.isOn()).collect(Collectors.toList()).size() + "]");
         System.out.println("Status : customers queue [" + p.getQueueCostumerCont() + "]");
@@ -65,8 +66,6 @@ public class AnalysisBox {
     }
 
     public void printProbabilites() {
-
-
         // Customer arrival timeline
         Calendar calendar = Calendar.getInstance();
         calendar = Utils.resetGenericWorkDay(calendar);
@@ -143,9 +142,21 @@ public class AnalysisBox {
             System.out.println("   - idle[" + desk.getIdleTime() + "]");
             System.out.println("   - utilization[" + (100 - ((desk.getIdleTime() / (540 / 100)))) + "]");
         }
-        System.out.println("- Desks overview End ----<");
+        System.out.println("- Desks overview End");
         System.out.println("\n");
     }
+
+    public void printQueueInfo() {
+        Double average = this.queueNumbers.stream().mapToInt(val -> val).average().getAsDouble();
+        System.out.println("- Queue overview ---->");
+        System.out.println(" - max[" + this.maxQueue + "]- "+this.maxTime);
+        System.out.println(" - avg[" + average + "]");
+        System.out.println("- Desks overview End");
+        System.out.println("\n");
+    }
+
+
+
 
 
 

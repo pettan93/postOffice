@@ -16,7 +16,7 @@ public class Main {
                 -   nasledne pak 4 cisla vyjadrujici kolik z tech provedenych sluzeb se stalo v dane rychlostni kategorii (do 1-2 minut, do 2-5 minut..)
          */
         // Vytvoreni posty - konstruktor, pocet prepazek
-        PostOffice posta = new PostOffice(5);
+        PostOffice posta = new PostOffice(4);
         // Vytvoreni sluzeb posty
         posta.addService(800, new Service(ServiceType.BALIK, new int[]{25, 24, 40, 3}));
         posta.addService(2000, new Service(ServiceType.DOPIS, new int[]{1254, 500, 20, 330}));
@@ -111,6 +111,7 @@ public class Main {
         ab.printProbabilites();
         ab.printServiceInfo();
         ab.printDesksInfo();
+        ab.printQueueInfo();
 
 
 
