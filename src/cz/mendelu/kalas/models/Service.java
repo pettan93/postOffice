@@ -26,13 +26,13 @@ public class Service {
         this.dispatchTimes.putObject((double) dispatches[3],DispatchTime.SLOWEST);
     }
 
-    public DispatchTime pickDelay(){
+    public DispatchTime pickDispatchTime(){
         Double r = Utils.getRandom(0.0,1.0,2);
         //System.out.println("random number = " + r);
         return (DispatchTime) dispatchTimes.getObject(r);
     }
 
-    public DispatchTime pickDelay(Double d){
+    public DispatchTime pickDispatchTime(Double d){
         //System.out.println("choosed number = " + d);
         return (DispatchTime) dispatchTimes.getObject(d);
     }

@@ -16,4 +16,17 @@ public class Utils {
         double randomValue = (min + (max - min) * r.nextDouble());
         return Math.round(randomValue * (round * 10.0)) / (round * 10.0);
     }
+
+    /**
+     * Generates random number number beetween min and max, rounded to given decimal places
+     * @return random number beetween min and max
+     */
+    public static Integer getRandom(Integer min, Integer max){
+
+        Random r = new Random();
+        int randomNum =  r.nextInt(max - min + 1) + min;
+
+
+        return randomNum;
+    }
 }

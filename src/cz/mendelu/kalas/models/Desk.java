@@ -9,6 +9,9 @@ public class Desk {
 
     private Integer idleTime = 0;
 
+    private Integer service;
+
+
     public void setOn(){
         this.busy = true;
     }

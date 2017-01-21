@@ -1,6 +1,7 @@
 package cz.mendelu.kalas;
 
 import cz.mendelu.kalas.enums.ServiceType;
+import cz.mendelu.kalas.models.DispatchTime;
 import cz.mendelu.kalas.models.PostOffice;
 import cz.mendelu.kalas.models.Service;
 import cz.mendelu.kalas.models.WorkDay;
@@ -40,8 +41,6 @@ public class Main {
 
 
 
-
-
         /*
         Faze 3 (in progress)
             - simulace pracovniho dne (540 minut), kdy chodi zakaznici (podle pravdepdobnosti), vybiraj si sluzby a tim obsazuji prepazky
@@ -49,7 +48,6 @@ public class Main {
                 - 1 sekunda = 1 minuta
                 - az to bude davat nejak smysl, tak to samozrejme nepojede takhle po sekundach ale probehne to davkove
          */
-
 
 
         while(!w.isEnd()){
@@ -61,14 +59,15 @@ public class Main {
 
             if(customer) {
                 Service service = posta.pickService();
-                System.out.println("Zakaznik -  si vybral službu ["+service.getName()+"], doba vyřízení ["+service.pickDelay().name()+"]");
+                DispatchTime dt = service.pickDispatchTime();
+                Integer dtt = dt.getTime();
+                System.out.println("Zakaznik -  si vybral službu ["+service.getName()+"], doba vyřízení ["+dt.name()+"]" + ", přesně minut [" + dtt + "]");
             }else {
                 System.out.println("Zakaznik neprisel");
             }
 
-
-
         }
+
 
 
 
