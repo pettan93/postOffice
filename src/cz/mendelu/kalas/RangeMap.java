@@ -8,7 +8,7 @@ import java.util.TreeMap;
 /**
  * Created by Pettan on 20.01.2017.
  */
-public class ProbabilityRangeMap<T> {
+public class RangeMap<T> {
     NavigableMap<Double, T> map = new TreeMap<>();
 
     public T getObject(Double key) {

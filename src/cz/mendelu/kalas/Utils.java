@@ -8,12 +8,12 @@ import java.util.Random;
 public class Utils {
 
     /**
-     * Returns random number
-     * @return 0.01 - 1.00
+     * Generates random number number beetween min and max, rounded to given decimal places
+     * @return random number beetween min and max
      */
-    public static Double getRandom(){
+    public static Double getRandom(Double min, Double max, Integer round){
         Random r = new Random();
-        double randomValue = (0.1 + (1 - 0.1) * r.nextDouble());
-        return Math.round(randomValue * 100.0) / 100.0;
+        double randomValue = (min + (max - min) * r.nextDouble());
+        return Math.round(randomValue * (round * 10.0)) / (round * 10.0);
     }
 }

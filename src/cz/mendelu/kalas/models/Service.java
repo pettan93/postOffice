@@ -1,6 +1,6 @@
 package cz.mendelu.kalas.models;
 
-import cz.mendelu.kalas.ProbabilityRangeMap;
+import cz.mendelu.kalas.RangeMap;
 import cz.mendelu.kalas.enums.ServiceType;
 import cz.mendelu.kalas.Utils;
 
@@ -11,7 +11,7 @@ public class Service {
 
     private ServiceType type;
 
-    private ProbabilityRangeMap dispatchTimes = new ProbabilityRangeMap<DispatchTime>();
+    private RangeMap dispatchTimes = new RangeMap<DispatchTime>();
 
     /**
      * Creates instance of Service class, which represents possible customer action at post office.
@@ -27,7 +27,7 @@ public class Service {
     }
 
     public DispatchTime pickDelay(){
-        Double r = Utils.getRandom();
+        Double r = Utils.getRandom(0.0,1.0,2);
         //System.out.println("random number = " + r);
         return (DispatchTime) dispatchTimes.getObject(r);
     }
@@ -48,7 +48,7 @@ public class Service {
                 "dispatchTimes=" + dispatchTimes;
     }
 
-    public ProbabilityRangeMap getDispatchTimes(){
+    public RangeMap getDispatchTimes(){
         return dispatchTimes;
     }
 }

@@ -24,7 +24,9 @@ public class Main {
         posta.addService(800,new Service(ServiceType.BALIK,new int[]{25,24,40,3}));
         posta.addService(2000,new Service(ServiceType.DOPIS,new int[]{1254,500,20,330}));
 
+        WorkDay w = new WorkDay(new int[]{30,15,15,10,8,20,16,30,40});
 
+        //System.out.println(w.toString());
 
 
 
@@ -47,15 +49,27 @@ public class Main {
                 - 1 sekunda = 1 minuta
                 - az to bude davat nejak smysl, tak to samozrejme nepojede takhle po sekundach ale probehne to davkove
          */
-        WorkDay w = new WorkDay();
+
+
+
         while(!w.isEnd()){
             sleep(1000);
 
-            System.out.println(w.howLong()+". minuta");
+            // Vypocet prichodu zakaznika podle pravdepodobnosti prichodu v danem case
+            Boolean customer = Utils.getRandom(0.001,1.0,3)< +w.getProbabilityForTime(w.howLong());
 
-            //Service service = posta.pickService();
-            //System.out.println("Zakaznik si vybral službu ["+service.getName()+"], doba vyřízení ["+service.pickDelay().name()+"]");
+
+            if(customer) {
+                Service service = posta.pickService();
+                System.out.println("Zakaznik -  si vybral službu ["+service.getName()+"], doba vyřízení ["+service.pickDelay().name()+"]");
+            }else {
+                System.out.println("Zakaznik neprisel");
+            }
+
+
+
         }
+
 
 
 
