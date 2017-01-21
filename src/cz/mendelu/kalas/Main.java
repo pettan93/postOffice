@@ -10,9 +10,6 @@ import static java.lang.Thread.sleep;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-
-
-
         /*
         Faze 1
             - vytvoreni posty (s poctem prepazek)
@@ -29,8 +26,6 @@ public class Main {
         WorkDay w = new WorkDay(new int[]{30, 15, 15, 10, 8, 20, 16, 30, 40});
 
 
-
-
         /*
         Faze 2
             - normalizace
@@ -41,23 +36,18 @@ public class Main {
         posta.normalize();
 
 
-
-
-
         /*
         Faze 3
             - simulace pracovniho dne (540 minut), kdy chodi zakaznici (podle pravdepdobnosti), zarazuji se do fronty, chodi k prepazkam a vybiraj si sluzby
             - nyni pro ucely odhadovani vstupnich cisel (musi nam z te prace vypadnou nejake rozumne vysledky) to mam jako
                 - 1 sekunda = 1 minuta
                 - az to bude davat nejak smysl, tak to samozrejme nepojede takhle po sekundach ale probehne to davkove
-         */
-
-
+        */
         // Mašina na listky pro prichozi zakaznika,
         int costumerTicket = 1;
         // cyklus simulujici pracovni den
         while (!w.isEnd()) {
-            sleep(2000); //step
+            System.out.println(w.getClock());
 
             // Vypocet prichodu zakaznika podle pravdepodobnosti prichodu v danem case
             Costumer customer = (Utils.getRandom(0.001, 1.0, 3) < +w.getProbabilityForTime(w.howLong())) ? new Costumer(costumerTicket) : null;
@@ -104,6 +94,7 @@ public class Main {
             System.out.println("Status : pocet volnych prepazek [" + posta.geAllDesks().stream().filter(desk -> !desk.isOn()).collect(Collectors.toList()).size() + "]");
             System.out.println("Status : pocet zakazniku ve fronte [" + posta.getQueueCostumerCont() + "] + " + posta.getQueueCostumer());
             System.out.println("-------------");
+            sleep(2000); //step
         }
 
 
