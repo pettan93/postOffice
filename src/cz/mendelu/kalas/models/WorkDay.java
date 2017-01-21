@@ -37,7 +37,7 @@ public class WorkDay {
     public boolean isEnd(){
         minutes = minutes + 1;
         calendar.add(Calendar.MINUTE, 1);
-        if (minutes.equals(540)) return true;
+        if (minutes > 540) return true;
         return false;
     }
 

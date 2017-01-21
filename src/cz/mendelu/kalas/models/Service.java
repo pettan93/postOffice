@@ -11,7 +11,7 @@ public class Service {
 
     private ServiceType type;
 
-    private RangeMap dispatchTimes = new RangeMap<DispatchTime>();
+    private RangeMap dispatchTimes = new RangeMap<DispatchCategory>();
 
     /**
      * Creates instance of Service class, which represents possible customer action at post office.
@@ -20,26 +20,30 @@ public class Service {
      */
     public Service(ServiceType type, int[] dispatches) {
         this.type = type;
-        this.dispatchTimes.putObject((double) dispatches[0],DispatchTime.VERY_FAST);
-        this.dispatchTimes.putObject((double) dispatches[1],DispatchTime.FAST);
-        this.dispatchTimes.putObject((double) dispatches[2],DispatchTime.SLOW);
-        this.dispatchTimes.putObject((double) dispatches[3],DispatchTime.SLOWEST);
+        this.dispatchTimes.putObject((double) dispatches[0], DispatchCategory.VERY_FAST);
+        this.dispatchTimes.putObject((double) dispatches[1], DispatchCategory.FAST);
+        this.dispatchTimes.putObject((double) dispatches[2], DispatchCategory.SLOW);
+        this.dispatchTimes.putObject((double) dispatches[3], DispatchCategory.SLOWEST);
     }
 
-    public DispatchTime pickDispatchTime(){
+    public DispatchCategory pickDispatchTime(){
         Double r = Utils.getRandom(0.0,1.0,2);
         //System.out.println("random number = " + r);
-        return (DispatchTime) dispatchTimes.getObject(r);
+        return (DispatchCategory) dispatchTimes.getObject(r);
     }
 
-    public DispatchTime pickDispatchTime(Double d){
+    public DispatchCategory pickDispatchTime(Double d){
         //System.out.println("choosed number = " + d);
-        return (DispatchTime) dispatchTimes.getObject(d);
+        return (DispatchCategory) dispatchTimes.getObject(d);
     }
 
 
     public String getName(){
         return type.name();
+    }
+
+    public ServiceType getType() {
+        return type;
     }
 
     @Override

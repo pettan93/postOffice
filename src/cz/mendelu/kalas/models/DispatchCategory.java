@@ -5,7 +5,7 @@ import static cz.mendelu.kalas.Utils.getRandom;
 /**
  * Created by Pettan on 20.01.2017.
  */
-public enum DispatchTime {
+public enum DispatchCategory {
     VERY_FAST {
         @Override
         public Integer getTime() {

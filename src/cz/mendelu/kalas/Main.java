@@ -3,8 +3,6 @@ package cz.mendelu.kalas;
 import cz.mendelu.kalas.enums.ServiceType;
 import cz.mendelu.kalas.models.*;
 
-import java.util.stream.Collectors;
-
 import static java.lang.Thread.sleep;
 
 public class Main {
@@ -24,6 +22,8 @@ public class Main {
         posta.addService(2000, new Service(ServiceType.DOPIS, new int[]{1254, 500, 20, 330}));
         // Vytvoreni pracovniho dne
         WorkDay w = new WorkDay(new int[]{30, 15, 15, 10, 8, 20, 16, 30, 40});
+        // Info bude sbirat tato krabicka
+        AnalysisBox ab = new AnalysisBox(posta,w);
 
 
         /*
@@ -79,30 +79,24 @@ public class Main {
 
                 // zakaznik si rozmysli co chce a priradi se ke prepazce
                 Service service = posta.pickService();
-                DispatchTime dt = service.pickDispatchTime();
-                Integer dtt = dt.getTime();
+                DispatchCategory dc = service.pickDispatchTime();
+                Integer dtt = dc.getTime();
                 System.out.println("Zakaznik s cislem [" + onMove.getNumber() + "] - " +
                         " je obslouzen na prepazce [" + freeDesk.getDeskNumber() + "], " +
                         " vybral službu [" + service.getName() + "]," +
-                        " doba vyřízení [" + dt.name() + "]" + "," +
+                        " doba vyřízení [" + dc.name() + "]" + "," +
                         " přesně minut [" + dtt + "]");
                 // prepazka se stava obsazena na daný čas potřebný k provedení služby
                 freeDesk.setBusy(dtt);
+                // zaevidovani hodnot
+                ab.addServiceDispatch(service.getType(),dc,dtt);
+
             }
 
 
-            System.out.println("Status : pocet volnych prepazek [" + posta.geAllDesks().stream().filter(desk -> !desk.isOn()).collect(Collectors.toList()).size() + "]");
-            System.out.println("Status : pocet zakazniku ve fronte [" + posta.getQueueCostumerCont() + "] + " + posta.getQueueCostumer());
-            System.out.println("-------------");
-            sleep(2000); //step
+            ab.printBrief();
+            sleep(1); //step
         }
-
-
-
-
-
-
-
 
 
 
@@ -111,6 +105,7 @@ public class Main {
             - tady si predstavuji ze to vyhodi nejake vysledky
                 - napr. prepazka 4 byla po vetsinu dne prázdná a proto je k hovnu, svoji poštu můžete zredukovat na 3 přepážky
          */
+        ab.printServiceInfo();
 
 
     }
