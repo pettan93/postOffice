@@ -1,6 +1,7 @@
 package cz.mendelu.kalas.models;
 
 import cz.mendelu.kalas.RangeMap;
+import cz.mendelu.kalas.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,13 +22,11 @@ public class WorkDay {
         for (int i = 0; i < 9 ; i++) {
             customerProbabilityTimeline.putObject((i+1)*60.0,customerTimeline[i]/60.0);
         }
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MINUTE, 00);
-        calendar.set(Calendar.HOUR, 8);
-        calendar.set(Calendar.AM_PM, Calendar.AM);
-        calendar.set(Calendar.MONTH, Calendar.DECEMBER);
-        calendar.set(Calendar.DAY_OF_MONTH, 21);
-        calendar.set(Calendar.YEAR, 2015);
+        Utils.resetGenericWorkDay(calendar);
+    }
+
+    public RangeMap getCustomerProbabilityTimeline() {
+        return customerProbabilityTimeline;
     }
 
     public Double getProbabilityForTime(int time){
@@ -54,8 +53,7 @@ public class WorkDay {
     }
 
     public String getClock(){
-        SimpleDateFormat f = new SimpleDateFormat("HH:mm");
-        return f.format(calendar.getTime());
+        return Utils.getPrettyTime(calendar);
     }
 
 

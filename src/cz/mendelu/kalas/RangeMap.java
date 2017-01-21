@@ -33,6 +33,10 @@ public class RangeMap<T> {
         }
     }
 
+    public Set<Double> getKeySet(){
+        return map.keySet();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

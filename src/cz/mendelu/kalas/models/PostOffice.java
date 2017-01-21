@@ -55,6 +55,9 @@ public class PostOffice {
         this.services.putObject((double) c, s);
     }
 
+    public RangeMap getServices() {
+        return services;
+    }
 
     public void normalize() {
         Set<Double> keys = services.getKeys();

@@ -30,7 +30,7 @@ public class Desk {
     public Integer getIdleTime(){ return idleTime;}
 
     public void checkStatus() {
-        //System.out.print("Desk[" + this.hashCode() + "], total idle time[" + idleTime + "]");
+        System.out.println("Desk[" + this.hashCode() + "], total idle time[" + idleTime + "]");
         if (busy) {
             //System.out.println(" - busy, remaining time [" + serviceDispatchTime + "]");
             if (serviceDispatchTime.equals(0)) this.setFree();
@@ -45,7 +45,6 @@ public class Desk {
        // System.out.println("Desk [" + this.getDeskNumber() + "] - set free!");
         this.busy = false;
     }
-
 
 
     public Boolean isOn() {
