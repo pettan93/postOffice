@@ -69,29 +69,32 @@ public class Main {
             }
 
 
-            // Je aktualne volna prepazka?
-            Desk freeDesk = posta.getFirstFreeDesk();
-            // Pokud je volna prepazka a nejaky zakaznik ve fronte
-            if (freeDesk != null && !posta.getQueueCostumer().isEmpty()) {
+            // Opakuj dokud jsou volne prapazky a fronta neni prazdna
+            while(posta.getFirstFreeDesk() != null && !posta.getQueueCostumer().isEmpty()){
+                Desk freeDesk = posta.getFirstFreeDesk();
+                // Pokud je volna prepazka a nejaky zakaznik ve fronte
+                if (freeDesk != null && !posta.getQueueCostumer().isEmpty()) {
 
-                // vyberu zakaznika z fronty
-                Costumer onMove = posta.getNextCostumer();
+                    // vyberu zakaznika z fronty
+                    Costumer onMove = posta.getNextCostumer();
 
-                // zakaznik si rozmysli co chce a priradi se ke prepazce
-                Service service = posta.pickService();
-                DispatchCategory dc = service.pickDispatchTime();
-                Integer dtt = dc.getTime();
-                System.out.println("Zakaznik s cislem [" + onMove.getNumber() + "] - " +
-                        " je obslouzen na prepazce [" + freeDesk.getDeskNumber() + "], " +
-                        " vybral službu [" + service.getName() + "]," +
-                        " doba vyřízení [" + dc.name() + "]" + "," +
-                        " přesně minut [" + dtt + "]");
-                // prepazka se stava obsazena na daný čas potřebný k provedení služby
-                freeDesk.setBusy(dtt);
-                // zaevidovani hodnot
-                ab.addServiceDispatch(service.getType(),dc,dtt);
+                    // zakaznik si rozmysli co chce a priradi se ke prepazce
+                    Service service = posta.pickService();
+                    DispatchCategory dc = service.pickDispatchTime();
+                    Integer dtt = dc.getTime();
+                    System.out.println("Zakaznik s cislem [" + onMove.getNumber() + "] - " +
+                            " je obslouzen na prepazce [" + freeDesk.getDeskNumber() + "], " +
+                            " vybral službu [" + service.getName() + "]," +
+                            " doba vyřízení [" + dc.name() + "]" + "," +
+                            " přesně minut [" + dtt + "]");
+                    // prepazka se stava obsazena na daný čas potřebný k provedení služby
+                    freeDesk.setBusy(dtt);
+                    // zaevidovani hodnot
+                    ab.addServiceDispatch(service.getType(),dc,dtt);
 
+                }
             }
+
 
 
             ab.printBrief();
@@ -106,6 +109,8 @@ public class Main {
                 - napr. prepazka 4 byla po vetsinu dne prázdná a proto je k hovnu, svoji poštu můžete zredukovat na 3 přepážky
          */
         ab.printServiceInfo();
+        ab.printDesksInfo();
+
 
 
     }

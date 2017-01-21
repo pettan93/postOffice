@@ -18,7 +18,7 @@ public class Desk {
     }
 
     public void setBusy(Integer dispatchTime) {
-        System.out.println("Prapazka [" + this.getDeskNumber() + "] - set busy!");
+        //System.out.println("Desk [" + this.getDeskNumber() + "] - set busy!");
         this.busy = true;
         this.serviceDispatchTime = dispatchTime;
     }
@@ -27,22 +27,26 @@ public class Desk {
         return deskNumber;
     }
 
+    public Integer getIdleTime(){ return idleTime;}
+
     public void checkStatus() {
-        System.out.print("Desk[" + this.hashCode() + "], total idle time[" + idleTime + "]");
+        //System.out.print("Desk[" + this.hashCode() + "], total idle time[" + idleTime + "]");
         if (busy) {
-            System.out.println(" - busy, remaining time [" + serviceDispatchTime + "]");
+            //System.out.println(" - busy, remaining time [" + serviceDispatchTime + "]");
             if (serviceDispatchTime.equals(0)) this.setFree();
             serviceDispatchTime--;
         } else {
-            System.out.println(" - idle");
+            //System.out.println(" - idle");
             this.incIdle();
         }
     }
 
     private void setFree() {
-        System.out.println("Prapazka [" + this.getDeskNumber() + "] - set free!");
+       // System.out.println("Desk [" + this.getDeskNumber() + "] - set free!");
         this.busy = false;
     }
+
+
 
     public Boolean isOn() {
         return busy;

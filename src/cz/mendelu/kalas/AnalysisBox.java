@@ -1,6 +1,7 @@
 package cz.mendelu.kalas;
 
 import cz.mendelu.kalas.enums.ServiceType;
+import cz.mendelu.kalas.models.Desk;
 import cz.mendelu.kalas.models.DispatchCategory;
 import cz.mendelu.kalas.models.PostOffice;
 import cz.mendelu.kalas.models.WorkDay;
@@ -32,7 +33,7 @@ public class AnalysisBox {
 
     public void printBrief() {
         System.out.println("Status : pocet volnych prepazek [" + p.geAllDesks().stream().filter(desk -> !desk.isOn()).collect(Collectors.toList()).size() + "]");
-        System.out.println("Status : pocet zakazniku ve fronte [" + p.getQueueCostumerCont() + "] + " + p.getQueueCostumer());
+        System.out.println("Status : pocet zakazniku ve fronte [" + p.getQueueCostumerCont() + "]");
         System.out.println("-------------");
     }
 
@@ -60,12 +61,11 @@ public class AnalysisBox {
     }
 
     public void printServiceInfo() {
-
-        System.out.println("Simulation info ---------------->");
+        //System.out.println("Simulation info ---------------->");
         System.out.println("- Services overview ---->");
         ArrayList<Integer> allDispatchTimes = new ArrayList<>();
         for (ServiceType serviceType : stats.keySet()) {
-            System.out.println("-  service[" + serviceType.name() + "]");
+            System.out.println(" - service[" + serviceType.name() + "]");
             HashMap<DispatchCategory, ArrayList<Integer>> dispatches = stats.get(serviceType);
 
             ArrayList<Integer> allServiceDispatchTimes = new ArrayList<>();
@@ -85,14 +85,24 @@ public class AnalysisBox {
 
             allDispatchTimes.addAll(allServiceDispatchTimes);
         }
-        System.out.println("- Services overview End ----<");
+
         Double average = allDispatchTimes.stream().mapToInt(val -> val).average().getAsDouble();
         System.out.println("- SUMMARY");
         System.out.println(" - count["+allDispatchTimes.size()+"]");
         System.out.println(" - avg["+average+"]");
-        System.out.println("Simulation info End -------------<");
-
+        System.out.println("- Services overview End ----<");
+        //System.out.println("Simulation info End -------------<");
     }
 
+    public void printDesksInfo(){
+        System.out.println("- Desks overview ---->");
+        for (Desk desk : this.p.geAllDesks()) {
+            System.out.println(" - desk["+desk.getDeskNumber()+"]");
+            System.out.println("   - idle["+desk.getIdleTime()+"]");
+            System.out.println("   - utilization["+(100-((desk.getIdleTime() / (540/100))))+"]");
+        }
+        System.out.println("- Desks overview End ----<");
+
+    }
 
 }
