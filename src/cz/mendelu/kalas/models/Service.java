@@ -8,6 +8,8 @@ public class Service {
 
     private ServiceType type;
 
+    private Boolean disabled = false;
+
     private RangeMap dispatchTimes = new RangeMap<DispatchCategory>();
 
     /**
@@ -15,7 +17,8 @@ public class Service {
      * @param type
      * @param dispatches
      */
-    public Service(ServiceType type, int[] dispatches) {
+    public Service(Boolean disabled,ServiceType type, int[] dispatches) {
+        this.disabled = disabled;
         this.type = type;
         this.dispatchTimes.putObject((double) dispatches[0], DispatchCategory.VERY_FAST);
         this.dispatchTimes.putObject((double) dispatches[1], DispatchCategory.FAST);
@@ -24,6 +27,7 @@ public class Service {
     }
 
     public DispatchCategory pickDispatchTime(){
+        if(disabled) return null;
         Double r = Utils.getRandom(0.0,1.0,2);
         //System.out.println("random number = " + r);
         return (DispatchCategory) dispatchTimes.getObject(r);
@@ -52,4 +56,5 @@ public class Service {
     public RangeMap getDispatchTimes(){
         return dispatchTimes;
     }
+
 }

@@ -7,13 +7,15 @@ import java.util.TreeMap;
 
 public class RangeMap<T> {
     NavigableMap<Double, T> map = new TreeMap<>();
+    static double diff = 0.0000001;
 
     public T getObject(Double key) {
         return map.ceilingEntry(key) != null ? map.ceilingEntry(key).getValue() : map.floorEntry(key).getValue() ;
     }
 
     public void putObject(Double key, T o){
-        this.map.put(key,o);
+        diff=diff+0.0000001;
+        this.map.put(key+diff,o);
     }
 
     public Set<Double> getKeys(){

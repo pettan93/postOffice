@@ -6,6 +6,8 @@ import cz.mendelu.kalas.models.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static jdk.nashorn.internal.objects.NativeMath.round;
+
 public class AnalysisBox {
 
 
@@ -14,6 +16,8 @@ public class AnalysisBox {
     private WorkDay w;
 
     private HashMap<ServiceType, HashMap<DispatchCategory, ArrayList<Integer>>> stats = new HashMap<>();
+
+    private HashMap<ServiceType,Integer> notServed = new HashMap<>();
 
 
     private List<Integer> queueNumbers = new ArrayList<>();
@@ -26,7 +30,14 @@ public class AnalysisBox {
         this.w = workDay;
     }
 
+    public void addNotServed(ServiceType st){
+        notServed.putIfAbsent(st, 1);
+        notServed.put(st,notServed.get(st)+1);
+    }
 
+    /**
+     * Called after each postOffice simulation minute
+     */
     public void checkout() {
         if(p.getQueueCostumer().size() > maxQueue) {
             maxQueue = p.getQueueCostumer().size();
@@ -72,7 +83,7 @@ public class AnalysisBox {
             Double d = (Double) o;
             String startDate = Utils.getPrettyTime(calendar);
             calendar.add(Calendar.MINUTE, 60);
-            System.out.println("    - " + startDate + "-" + Utils.getPrettyTime(calendar) + "[" + w.getCustomerProbabilityTimeline().getObject(d) + "]");
+            System.out.println("    - " + startDate + "-" + Utils.getPrettyTime(calendar) + "[" + Utils.round((Double) w.getCustomerProbabilityTimeline().getObject(d)) + "]");
         }
         System.out.println("  - Customer arrival timeline END --<");
 
@@ -83,10 +94,10 @@ public class AnalysisBox {
         for (Object o : p.getServices().getKeySet()) {
             Double d = (Double) o;
             Service s = (Service) p.getServices().getObject(d);
-            System.out.println("    - " + s.getName() + "[" + d + "]");
+            System.out.println("    - " + s.getName() + "[" + Utils.round(d) + "]");
             for (Object o1 : s.getDispatchTimes().getKeySet()) {
                 Double dd = (Double) o1;
-                System.out.println("           - " + ((DispatchCategory) s.getDispatchTimes().getObject(dd)).name() + "[" + dd + "]");
+                System.out.println("           - " + ((DispatchCategory) s.getDispatchTimes().getObject(dd)).name() + "[" + Utils.round(dd) + "]");
 
             }
         }
@@ -98,7 +109,13 @@ public class AnalysisBox {
 
 
     public void printServiceInfo() {
-        //System.out.println("Simulation info ---------------->");
+        Integer skipped = 0;
+        for (ServiceType serviceType : notServed.keySet()) {
+            skipped = skipped + notServed.get(serviceType);
+        }
+
+
+
         System.out.println("- Services overview ---->");
         ArrayList<Integer> allDispatchTimes = new ArrayList<>();
         for (ServiceType serviceType : stats.keySet()) {
@@ -112,13 +129,13 @@ public class AnalysisBox {
                 Double average = dispatchTimes.stream().mapToInt(val -> val).average().getAsDouble();
                 System.out.println("     - category[" + dispatchCategory.name() + "]");
                 System.out.println("       - count[" + dispatchTimes.size() + "]");
-                System.out.println("       - avg[" + average + "]");
+                System.out.println("       - avg[" + Utils.round(average) + "]");
                 allServiceDispatchTimes.addAll(dispatchTimes);
             }
 
             Double average = allServiceDispatchTimes.stream().mapToInt(val -> val).average().getAsDouble();
             System.out.println(" - count[" + allServiceDispatchTimes.size() + "]");
-            System.out.println(" - avg[" + average + "]");
+            System.out.println(" - avg[" + Utils.round(average) + "]");
 
             allDispatchTimes.addAll(allServiceDispatchTimes);
         }
@@ -126,7 +143,8 @@ public class AnalysisBox {
         Double average = allDispatchTimes.stream().mapToInt(val -> val).average().getAsDouble();
         System.out.println("- SUMMARY");
         System.out.println(" - count[" + allDispatchTimes.size() + "]");
-        System.out.println(" - avg[" + average + "]");
+        System.out.println(" - skipped[" + skipped + "]");
+        System.out.println(" - avg[" + Utils.round(average) + "]");
         System.out.println("- Services overview End ----<");
         //System.out.println("Simulation info End -------------<");
         System.out.println("\n");
@@ -148,8 +166,18 @@ public class AnalysisBox {
         Double average = this.queueNumbers.stream().mapToInt(val -> val).average().getAsDouble();
         System.out.println("- Queue overview ---->");
         System.out.println(" - max[" + this.maxQueue + "]- "+this.maxTime);
-        System.out.println(" - avg[" + average + "]");
+        System.out.println(" - avg[" + Utils.round(average) + "]");
         System.out.println("- Queue overview End");
+        System.out.println("\n");
+    }
+
+    public void printSkippedServiceInfo() {
+        System.out.println("- Disabled services overview ---->");
+        for (ServiceType serviceType : notServed.keySet()) {
+            System.out.println(" - service["+serviceType.name()+"] skipped "+notServed.get(serviceType)+"x");
+        }
+
+        System.out.println("- Disabled services overview End");
         System.out.println("\n");
     }
 

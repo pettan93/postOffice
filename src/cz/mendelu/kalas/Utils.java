@@ -44,6 +44,10 @@ public class Utils {
     public static String getPrettyTime(Calendar c) {
         SimpleDateFormat f = new SimpleDateFormat("HH:mm");
         return f.format(c.getTime());
-
     }
+
+    public static Double round(Double c) {
+        return Math.round(c * 10000.0) / 10000.0;
+    }
+
 }
