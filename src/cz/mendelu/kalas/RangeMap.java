@@ -25,10 +25,12 @@ public class RangeMap<T> {
     public void normalize(){
         ArrayList<Double> keys = new ArrayList<>(map.keySet());
         Double sum = keys.stream().mapToDouble(Double::doubleValue).sum();
+        Double part = 0.0;
 
         for (Double key : keys) {
             T obj = map.remove(key);
-            map.put(((100/sum)*key)/100, obj);
+            map.put(part+(key/sum), obj);
+            part = part + (key/sum);
         }
     }
 

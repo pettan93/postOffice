@@ -97,7 +97,7 @@ public class AnalysisBox {
             System.out.println("    - " + s.getName() + "[" + Utils.round(d) + "]");
             for (Object o1 : s.getDispatchTimes().getKeySet()) {
                 Double dd = (Double) o1;
-                System.out.println("           - " + ((DispatchCategory) s.getDispatchTimes().getObject(dd)).name() + "[" + Utils.round(dd) + "]");
+                System.out.println("" + ((DispatchCategory) s.getDispatchTimes().getObject(dd)).name() + ";" + Utils.round(dd) + "");
 
             }
         }
