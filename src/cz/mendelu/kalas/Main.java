@@ -1,7 +1,9 @@
 package cz.mendelu.kalas;
 
+import cz.mendelu.kalas.enums.DispatchCategory;
 import cz.mendelu.kalas.enums.ServiceType;
 import cz.mendelu.kalas.models.*;
+import cz.mendelu.kalas.tools.AnalysisBox;
 
 public class Main {
 

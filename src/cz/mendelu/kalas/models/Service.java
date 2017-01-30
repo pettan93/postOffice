@@ -1,6 +1,7 @@
 package cz.mendelu.kalas.models;
 
-import cz.mendelu.kalas.RangeMap;
+import cz.mendelu.kalas.tools.RangeMap;
+import cz.mendelu.kalas.enums.DispatchCategory;
 import cz.mendelu.kalas.enums.ServiceType;
 import cz.mendelu.kalas.Utils;
 
@@ -57,4 +58,23 @@ public class Service {
         return dispatchTimes;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Service service = (Service) o;
+
+        if (type != service.type) return false;
+        if (disabled != null ? !disabled.equals(service.disabled) : service.disabled != null) return false;
+        return dispatchTimes != null ? dispatchTimes.equals(service.dispatchTimes) : service.dispatchTimes == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = type.hashCode();
+        result = 31 * result + (disabled != null ? disabled.hashCode() : 0);
+        result = 31 * result + (dispatchTimes != null ? dispatchTimes.hashCode() : 0);
+        return result;
+    }
 }

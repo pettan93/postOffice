@@ -1,4 +1,4 @@
-package cz.mendelu.kalas.models;
+package cz.mendelu.kalas.enums;
 
 import static cz.mendelu.kalas.Utils.getRandom;
 

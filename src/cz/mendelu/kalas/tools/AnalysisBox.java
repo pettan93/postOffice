@@ -1,12 +1,12 @@
-package cz.mendelu.kalas;
+package cz.mendelu.kalas.tools;
 
+import cz.mendelu.kalas.Utils;
+import cz.mendelu.kalas.enums.DispatchCategory;
 import cz.mendelu.kalas.enums.ServiceType;
 import cz.mendelu.kalas.models.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static jdk.nashorn.internal.objects.NativeMath.round;
 
 public class AnalysisBox {
 

@@ -1,6 +1,6 @@
 package cz.mendelu.kalas.models;
 
-import cz.mendelu.kalas.RangeMap;
+import cz.mendelu.kalas.tools.RangeMap;
 import cz.mendelu.kalas.Utils;
 
 import java.util.ArrayList;
