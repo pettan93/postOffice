@@ -4,6 +4,7 @@ import cz.mendelu.kalas.tools.RangeMap;
 import cz.mendelu.kalas.Utils;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 
 public class WorkDay {
@@ -11,26 +12,33 @@ public class WorkDay {
 
     private Calendar calendar = Calendar.getInstance();
 
-    private RangeMap customerProbabilityTimeline = new RangeMap<Double>();
+    private RangeMap customerProbabilityTimeline;
 
     private Integer minutes = 0;
 
     public WorkDay(int[] customerTimeline) {
-        for (int i = 0; i < 9 ; i++) {
-            customerProbabilityTimeline.putObject((i+1)*60.0,customerTimeline[i]/60.0);
+
+        HashMap<Double, Integer> map = new HashMap<>();
+        for (int i = 0; i < 9; i++) {
+            map.put(customerTimeline[i] / 60.0, (i + 1) * 60);
         }
+
+
+        customerProbabilityTimeline = new RangeMap<Double>(map);
+
         Utils.resetGenericWorkDay(calendar);
+
     }
 
     public RangeMap getCustomerProbabilityTimeline() {
         return customerProbabilityTimeline;
     }
 
-    public Double getProbabilityForTime(int time){
+    public Double getProbabilityForTime(int time) {
         return (Double) customerProbabilityTimeline.getObject((double) time);
     }
 
-    public boolean isEnd(){
+    public boolean isEnd() {
         minutes = minutes + 1;
         calendar.add(Calendar.MINUTE, 1);
         if (minutes > 540) return true;
@@ -45,15 +53,13 @@ public class WorkDay {
                 '}';
     }
 
-    public Integer howLong(){
+    public Integer howLong() {
         return minutes;
     }
 
-    public String getClock(){
+    public String getClock() {
         return Utils.getPrettyTime(calendar);
     }
-
-
 
 
 }

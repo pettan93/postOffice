@@ -1,40 +1,58 @@
 package cz.mendelu.kalas.tools;
 
-import java.util.ArrayList;
-import java.util.NavigableMap;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
-public class RangeMap<T> {
+/**
+ * Generic RangaMap, use for probability distribution
+ *
+ * For inicialization put map of some items and their occurrences
+ *
+ * Example
+ *  Input
+ *      key : spotted vehicle
+ *      value : sum of occurrences
+ *          {Blue car, 10}
+ *          {Red bike, 5}
+ *          {White truck, 5}
+ *  RangeMap
+ *      key : probability
+ *      value : spotted vehicle
+ *          {0.50, Blue car}
+ *          {0.25, Red bike}
+ *          {0.25, White truck}
+ *
+ * @param <T>
+ */
+public final class RangeMap<T> {
+
     NavigableMap<Double, T> map = new TreeMap<>();
-    static double diff = 0.0000001;
+
+    public RangeMap(HashMap<T, Integer> items) {
+        double sum = 0.0, part = 0.0;
+        for (T t : items.keySet()) {
+            sum = sum + items.get(t);
+        }
+
+        for (T t : items.keySet()) {
+            if(items.get(t).equals(0)) continue;
+            map.put(part + (items.get(t) / sum), t);
+            part = part + (items.get(t) / sum);
+        }
+    }
+
 
     public T getObject(Double key) {
         return map.ceilingEntry(key) != null ? map.ceilingEntry(key).getValue() : map.floorEntry(key).getValue();
     }
 
-    public void putObject(Double key, T o) {
-        diff = diff + 0.0000001;
-        this.map.put(key + diff, o);
+    public T randomPick(){
+        Random r = new Random();
+        double d = (0 + (1) * r.nextDouble());
+        System.out.println(d);
+        return getObject(d);
     }
 
-    public Set<Double> getKeys() {
-        return map.keySet();
-    }
-
-    public void normalize() {
-        ArrayList<Double> keys = new ArrayList<>(map.keySet());
-        Double sum = keys.stream().mapToDouble(Double::doubleValue).sum();
-        Double part = 0.0;
-
-        for (Double key : keys) {
-            T obj = map.remove(key);
-            map.put(part + (key / sum), obj);
-            part = part + (key / sum);
-        }
-    }
-
-    public Set<Double> getKeySet() {
+    Set<Double> getKeySet() {
         return map.keySet();
     }
 

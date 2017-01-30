@@ -3,14 +3,11 @@ package cz.mendelu.kalas.models;
 import cz.mendelu.kalas.tools.RangeMap;
 import cz.mendelu.kalas.Utils;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 public class PostOffice {
 
-    private RangeMap services = new RangeMap<Service>();
+    private RangeMap services;
 
     private ArrayList<Desk> desks = new ArrayList<>();
 
@@ -21,10 +18,14 @@ public class PostOffice {
      *
      * @param desks
      */
-    public PostOffice(Integer desks) {
+    public PostOffice(Integer desks, HashMap<Service,Integer> s) {
         for (int i = 1; i < desks+1; i++) {
             this.desks.add(new Desk(i));
         }
+
+
+        services = new RangeMap<>(s);
+
     }
 
     public Desk getFirstFreeDesk() {
@@ -48,14 +49,12 @@ public class PostOffice {
         return (Service) services.getObject(d);
     }
 
-    public void addService(int c, Service s) {
-        this.services.putObject((double) c, s);
-    }
 
     public RangeMap getServices() {
         return services;
     }
 
+    /*
     public void normalize() {
         Set<Double> keys = services.getKeys();
         for (Double key : keys) {
@@ -63,6 +62,7 @@ public class PostOffice {
         }
         services.normalize();
     }
+    */
 
     public Costumer getNextCostumer(){
         return q.poll();

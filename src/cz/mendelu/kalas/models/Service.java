@@ -5,42 +5,49 @@ import cz.mendelu.kalas.enums.DispatchCategory;
 import cz.mendelu.kalas.enums.ServiceType;
 import cz.mendelu.kalas.Utils;
 
+import java.util.HashMap;
+
 public class Service {
 
     private ServiceType type;
 
     private Boolean disabled = false;
 
-    private RangeMap dispatchTimes = new RangeMap<DispatchCategory>();
+    private RangeMap dispatchTimes;
 
     /**
      * Creates instance of Service class, which represents possible customer action at post office.
+     *
      * @param type
      * @param dispatches
      */
-    public Service(Boolean disabled,ServiceType type, int[] dispatches) {
+    public Service(Boolean disabled, ServiceType type, int[] dispatches) {
         this.disabled = disabled;
         this.type = type;
-        this.dispatchTimes.putObject((double) dispatches[0], DispatchCategory.VERY_FAST);
-        this.dispatchTimes.putObject((double) dispatches[1], DispatchCategory.FAST);
-        this.dispatchTimes.putObject((double) dispatches[2], DispatchCategory.SLOW);
-        this.dispatchTimes.putObject((double) dispatches[3], DispatchCategory.SLOWEST);
+
+        HashMap map = new HashMap();
+        map.put(DispatchCategory.VERY_FAST, dispatches[0]);
+        map.put(DispatchCategory.FAST, dispatches[1]);
+        map.put(DispatchCategory.SLOW, dispatches[2]);
+        map.put(DispatchCategory.SLOWEST, dispatches[3]);
+
+        dispatchTimes = new RangeMap<DispatchCategory>(map);
     }
 
-    public DispatchCategory pickDispatchTime(){
-        if(disabled) return null;
-        Double r = Utils.getRandom(0.0,1.0,2);
+    public DispatchCategory pickDispatchTime() {
+        if (disabled) return null;
+        Double r = Utils.getRandom(0.0, 1.0, 2);
         //System.out.println("random number = " + r);
         return (DispatchCategory) dispatchTimes.getObject(r);
     }
 
-    public DispatchCategory pickDispatchTime(Double d){
+    public DispatchCategory pickDispatchTime(Double d) {
         //System.out.println("choosed number = " + d);
         return (DispatchCategory) dispatchTimes.getObject(d);
     }
 
 
-    public String getName(){
+    public String getName() {
         return type.name();
     }
 
@@ -54,7 +61,7 @@ public class Service {
                 "dispatchTimes=" + dispatchTimes;
     }
 
-    public RangeMap getDispatchTimes(){
+    public RangeMap getDispatchTimes() {
         return dispatchTimes;
     }
 
