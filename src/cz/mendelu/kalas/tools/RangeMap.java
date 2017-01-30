@@ -3,7 +3,7 @@ package cz.mendelu.kalas.tools;
 import java.util.*;
 
 /**
- * Generic RangaMap, use for probability distribution
+ * Generic RangeMap, use for probability distribution
  *
  * For inicialization put map of some items and their occurrences
  *

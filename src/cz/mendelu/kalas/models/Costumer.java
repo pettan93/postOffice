@@ -1,5 +1,8 @@
 package cz.mendelu.kalas.models;
 
+/**
+ * Customer model
+ */
 public class Costumer {
 
     private int number;

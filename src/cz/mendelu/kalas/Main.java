@@ -50,8 +50,7 @@ public class Main {
             - nyni pro ucely odhadovani vstupnich cisel (musi nam z te prace vypadnou nejake rozumne vysledky) to mam jako
                 - 1 sekunda = 1 minuta
                 - az to bude davat nejak smysl, tak to samozrejme nepojede takhle po sekundach ale probehne to davkove
-
-
+        */
         // Mašina na listky pro prichozi zakaznika,
         int costumerTicket = 1;
         // cyklus simulujici pracovni den
@@ -122,7 +121,7 @@ public class Main {
         ab.printDesksInfo();
         ab.printQueueInfo();
         ab.printSkippedServiceInfo();
-*/
+
 
 
 
